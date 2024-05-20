@@ -1,16 +1,20 @@
+const content = document.querySelector('#content')
 const table = document.querySelector('#pwaTable')
 const btn = document.querySelectorAll('.btn')
 
 
 class PWA {
-
+    constructor(){
+        this.data = ''
+    }
     static init(){
-
+       
         btn.forEach(btnData=>{
             btnData.addEventListener('click', this.checkName.bind(this))
         })
     
-        this.userData()
+        // this.userData()
+        this.photoData()
     }
 
     static async checkName(e){
@@ -25,9 +29,7 @@ class PWA {
     }
 
     static async userData(){
-        let data = ''
-
-        data = 
+        this.data = 
         `<tr class="table-primary text-center">
             <th>Name</th>
             <th>Username</th>
@@ -45,9 +47,9 @@ class PWA {
         
 
         if(response.ok){
-            console.log(json)
+
             json.forEach( info =>{
-                data += `
+                this.data += `
                 <tr >
                     <td>${info.name}</td>
                     <td>${info.username}</td>
@@ -71,13 +73,31 @@ class PWA {
             })
             
         }
-        
-
-        table.innerHTML = data
+    
+        table.innerHTML = this.data
     }
 
     static async photoData(){
-        console.log('photodata')
+
+        const response = await fetch('https://jsonplaceholder.typicode.com/photos')
+
+        let json = await response.json()
+        json =  json.filter((photoData,index) => index < 10)
+        
+        //style div 
+        this.data = `<div class='row mb-10'>`
+
+        json.forEach((photoData,index)=>{
+            console.log(photoData)
+            this.data += `<div class='col-sm border align-items-center'>`
+                this.data += `<img src='${photoData.url}' class='img-fluid' />`
+                this.data += `<h3 class='text-center'>${photoData.title}</h3>`
+            this.data += '</div>'
+        })
+        
+        this.data += `</div>`
+        content.innerHTML = this.data
+
     }
 }
 
