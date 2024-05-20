@@ -1,4 +1,4 @@
-const fetchData = async () => {
+const userData = async () => {
     let list = ''
 
     const response = await fetch('https://jsonplaceholder.typicode.com/users')
@@ -22,5 +22,5 @@ const fetchData = async () => {
 }
 
 
-fetchData()
+userData()
 
