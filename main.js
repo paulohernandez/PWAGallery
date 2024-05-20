@@ -9,7 +9,8 @@ class PWA {
         btn.forEach(btnData=>{
             btnData.addEventListener('click', this.checkName.bind(this))
         })
-
+    
+        this.userData()
     }
 
     static async checkName(e){
@@ -17,7 +18,8 @@ class PWA {
         if(value === 'home'){
             this.userData();
         }else{
-            table.innerHTML = ''
+            // table.innerHTML = ''
+            this.photoData()
         }
     
     }
@@ -26,7 +28,7 @@ class PWA {
         let data = ''
 
         data = 
-        `<tr class="table-primary">
+        `<tr class="table-primary text-center">
             <th>Name</th>
             <th>Username</th>
             <th>Phone</th>
@@ -44,17 +46,26 @@ class PWA {
 
         if(response.ok){
             console.log(json)
-
             json.forEach( info =>{
                 data += `
-                <tr>
+                <tr >
                     <td>${info.name}</td>
                     <td>${info.username}</td>
                     <td>${info.phone}</td>
                     <td>${info.email}</td>
                     <td>${info.website}</td>
-                    <td>${info.address['city']}</td>
-                    <td>${info.company['name']}</td>
+                    <td>
+                        <strong>City:</strong> ${info.address['city']}<br/>
+                        <strong>Street:</strong> ${info.address['street']}<br/>
+                        <strong>Suite:</strong> ${info.address['suite']}<br/>
+                        <strong>Zip Code:</strong> ${info.address['zipcode']}<br/>
+                    </td>
+                    <td>
+                    <strong>Name:</strong> ${info.company['name']}<br/>
+                    <strong>Bs:</strong> ${info.company['bs']}<br/>
+                    <strong>Catch Prase:</strong> ${info.company['catchPhrase']}<br/>
+                   
+                    </td>
                 </tr>`
                 
             })
@@ -63,6 +74,10 @@ class PWA {
         
 
         table.innerHTML = data
+    }
+
+    static async photoData(){
+        console.log('photodata')
     }
 }
 
