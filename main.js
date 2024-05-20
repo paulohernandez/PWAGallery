@@ -18,7 +18,7 @@ class PWA {
         if(value === 'home'){
             this.userData();
         }else{
-            // table.innerHTML = ''
+            table.innerHTML = ''
             this.photoData()
         }
     
